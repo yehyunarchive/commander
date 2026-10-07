@@ -58,7 +58,7 @@
   .ul { text-decoration: underline; text-decoration-thickness: 0.7px; text-underline-offset: 2px; text-decoration-skip-ink: none; }
 
   /* 장르명 (검은 배경) */
-  .genre { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 3px; margin-right: 5px; font-weight: 500;
+  .genre { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 2px; margin-right: 5px; font-weight: 500;
            -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
   /* 리스트 페이지 */
@@ -168,7 +168,7 @@
 
       <p class="p gap">강박적으로 멘션이나 트윗 삭제하고 해요 관련 행동에 악의는 전혀 존재하지 않습니다 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
 
-      <p class="p gap">사이버 스토킹 및 견제와 관련되어 안 좋은 기억이 있으며 관련 일들에 의해 현재까지 스트레스 받고 있을 정도로 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
+      <p class="p gap">사이버 스토킹 내지는 사찰과 관련해 안 좋은 기억이 여럿 존재하며 관련 일에 의해 현재까지 스트레스 받고 있을 정도로 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
 
       <p class="p"><b>NG</b> / 동담・AI 채팅 및 그림 소비러 내지는 이에 연관된 분</p>
     </div>
@@ -330,7 +330,9 @@
     }
     pg._fit = true;
   }
+  const USE_JUSTIFY = true; // true: 양쪽 정렬 / false: 왼쪽 정렬(자간 균일)
   function justifyCur() {
+    if (!USE_JUSTIFY) return;
     const pg = pages[cur];
     if (cur === 0) return;
     if (cur === 3) return; // 3페이지는 목록이라 양쪽 정렬 안 함

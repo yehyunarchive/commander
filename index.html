@@ -12,6 +12,7 @@
     --line: #000;
     --chip-bg: #000;
     --chip-fg: #fff;
+    --gray: #8a8a8a;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--bg); color: var(--fg); }
@@ -44,12 +45,19 @@
   /* 볼드 */
   b, strong, .bold { font-weight: 700; }
 
+  /* 괄호 회색 */
+  .gray { color: var(--gray); }
+
   /* 하이라이트 칩 */
   .chip { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 2px; font-weight: 500;
           -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   .chip b, b .chip, .chip.bold { font-weight: 700; }
   .box { border: 0; padding: 0; text-decoration: underline; text-decoration-thickness: 0.7px; text-underline-offset: 2px; text-decoration-skip-ink: none; }
   .ul { text-decoration: underline; text-decoration-thickness: 0.7px; text-underline-offset: 2px; text-decoration-skip-ink: none; }
+
+  /* 장르명 (검은 배경) */
+  .genre { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 3px; margin-right: 5px; font-weight: 500;
+           -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
   /* 리스트 페이지 */
   .head { font-size: 10.5px; font-weight: 500; margin-bottom: 10px; }
@@ -84,19 +92,16 @@
   .t-head .time { font-size: 9px; }
   .term { font-size: 9px; margin-bottom: 8px; }
 
-  .p { font-size: 10px; margin-bottom: 3px; }
-  .p.gap { margin-bottom: 8px; }
+  /* 본문: 양쪽 정렬 */
+  .p { font-size: var(--fs, 10px); margin-bottom: 3px; }
+  .c { display: inline; }
+  .page[data-page="3"] .p { margin-bottom: 3px; }
+  .page[data-page="3"] .p.gap { margin-bottom: 6px; }
+  .p.gap { margin-bottom: 9px; }
   .p small { font-size: 7.5px; vertical-align: super; }
   .indent { padding-left: 20px; }
   .indent2 { padding-left: 56px; }
   .ml { display: block; margin-left: 20px; }
-
-  .rows { margin-top: 7px; }
-  .row { display: flex; gap: 10px; margin-bottom: 3px; font-size: 10px; }
-  .row .who { flex: none; width: 74px; }
-  .row .who span { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 2px; font-weight: 500; }
-  .row .who span { background: var(--chip-bg); color: var(--chip-fg); padding: 1px 2px; font-weight: 500; }
-  .row .chars { flex: 1; }
 
   /* 하단 네비 */
   .nav {
@@ -124,73 +129,75 @@
         소수계 지향으로 팔로우 정리 잦으나 악의 X
       </p>
       <div class="tracks">
-        <div class="track" data-go="1"><span class="no">01</span><span class="name">Loved Completely</span><span class="time">03:41</span></div>
-        <div class="track" data-go="2"><span class="no">02</span><span class="name">Let My Heart Grow</span><span class="time">04:15</span></div>
-        <div class="track" data-go="3"><span class="no">03</span><span class="name">Kiss Me Right</span><span class="time">03:08</span></div>
+        <div class="track" data-go="1"><span class="no">01</span><span class="name">dear my commander</span><span class="time">12:26</span></div>
+        <div class="track" data-go="2"><span class="no">02</span><span class="name">Poème, Op. 25</span><span class="time">09:26</span></div>
+        <div class="track" data-go="3"><span class="no">03</span><span class="name">deus ex machina</span><span class="time">01:32</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 01 ===== -->
+  <!-- ===== 01 (1 페이지) ===== -->
   <section class="page" data-page="1">
     <div class="panel">
-      <div class="t-head"><span class="no">01</span><h2>Loved Completely</h2><span class="time">03:41</span></div>
-      <p class="term">sempre amoroso</p>
+      <div class="t-head"><span class="no">01</span><h2>dear my commander</h2><span class="time">notice</span></div>
+      <p class="term">end of replica</p>
 
-      <p class="p" style="margin-bottom:12px"><span class="chip">♪ please check!</span></p>
+      <p class="p" style="margin-bottom:12px"><span class="chip">Careful reading required</span></p>
 
-      <p class="p">상당히 예민한 성향이므로 겹드림 자연 발생 시 친분 무관 제 쪽 팔로우 재고 권장합니다 동담 발견 시 <b>사적 감정 일체 없는 B로 대응</b>하며 관련된 모든 종류의 컨택 받지 않습니다</p>
-      <p class="p">또한 NL 성향으로 블랙배저 내 모든 캐릭터 디폴트 논 로맨스 최대 조합으로 소비해요 단 이예현 CP가 아닌 경우에는 어느 정도 흐린 눈 가능합니다</p〉
+      <p class="p gap">상당히 예민한 성향이므로 겹드림 자연 발생 시 친분 무관 제 쪽 팔로우 재고해 주세요 동담 발견 시 <b>사적 감정 일체 없는 B</b>로 대응하며 관련된 모든 종류의 컨택 받지 않습니다 추가로 겹드림러가 있다는 사실도 알고 싶지 않습니다 고소 감 아니면 타 이예현 드림러 얘기 제게 전달하지 마세요</p>
 
-      <p class="p" style="margin-top:9px">좁은 타임라인에 집중하고자 하는 성향으로 제가 배려를 요하는 만큼 FF분의 성향과 무관하게 신경 쓰며 타임라인 운영합니다</p>
-      <p class="p">제 행동으로 인해 불편함을 느끼셨다면 편히 DM으로 연락 부탁드려요 대화로 조율하는 편을 선호합니다</p>
+      <p class="p gap">논 커플링이 아닌 이예현 연성 유입하지 말아주세요 특히 화살표 구분없이 승현 → 윤 ← 예현 구조 동인 정말 싫어합니다⋯⋯ NL 성향으로 블랙배저 내 모든 캐릭터 디폴트 논 로맨스 최대 조합으로 소비해요 <span class="gray">(이예현 관련 CP 아니면 흐린 눈)</span></p>
 
-      <p class="p" style="margin-top:9px">Novel AI를 활용한 <span class="box">에셋 생성 및 업로드</span> 존재하며 업로드 시 nsfw 요소가</p>
+      <p class="p gap">블랙배저 외전까지의 모든 내용 및 스포일러 별도로 기능 사용하지 않습니다 예현이 과거 서사 중 <b>아동 폭력 및 방임</b>과 관련된 트리거 소재가 존재하며 때로는 직접적으로 언급합니다 불편하실 경우 단어 뮤트 기능 활용 권장합니다</p>
+
+      <p class="p">개인 봇 언급 잦습니다 해당 문화에 부정적인 인식 가지고 있으실 경우 팔로우 X</p>
     </div>
   </section>
 
-  <!-- ===== 02 ===== -->
+  <!-- ===== 02 (2 페이지) ===== -->
   <section class="page" data-page="2">
     <div class="panel">
-      <div class="t-head"><span class="no">02</span><h2>Let My Heart Grow</h2><span class="time">04:15</span></div>
-      <p class="term">poco a poco cresc.</p>
+      <div class="t-head"><span class="no">02</span><h2>Poème, Op. 25</h2><span class="time">fyi</span></div>
+      <p class="term">- always? always.</p>
 
-      <p class="p" style="margin-bottom:12px"><span class="chip">♪ please check!</span></p>
+      <p class="p" style="margin-bottom:12px"><span class="chip">from to my eternity</span></p>
 
-      <p class="p">타인의 차재현 플레이 흔적 <span class="box">유입 일체를 드림 지우기로 간주</span> 하는 예민한 성향이므로 배려 관련 문제 발생 시 제 쪽을 정리하는 편을 권고드립니다</p>
-      <p class="p">가능한 다른 차재현 플레이하시는 분과 저를 한 타임라인에 두지 말아 주세요</p>
-      <p class="p">플레이하시는 다른 분께도 실례가 될 것 같습니다……</p>
+      <p class="p gap">성향 문제 등 저와의 대화에 있어 깔끔한 마음이 들지 않을 경우 정리해 주세요 애매한 마음으로 하는 교류를 달가워하지 않습니다 추가로 관계 지속이나 대화에 피로감을 느끼거나 성향이 맞지 않다고 느낄 경우도 동일한 행동으로 대응해 주세요</p>
 
-      <p class="p" style="margin-top:9px">좁은 타임라인에 집중하고자 하는 성향으로 제가 배려를 요하는 만큼 FF분의 성향과 무관하게 신경 쓰며 타임라인 운영합니다</p>
-      <p class="p">제 행동으로 인해 불편함을 느끼셨다면 편히 DM으로 연락 부탁드려요 대화로 조율하는 편을 선호합니다</p>
+      <p class="p gap">팔로우 정리 잦으며 겹드림러가 오픈 성향일 지라도 타임라인에 존재할 경우 제 쪽에서 먼저 팔로우 걸어도 반드시 거절해 주세요 블락 이외의 정리 후 재연결은 상관하지 않으나 거절할 가능성이 큽니다</p>
 
-      <p class="p" style="margin-top:9px">Novel AI를 활용한 <span class="box">에셋 생성 및 업로드</span> 존재하며 업로드 시 nsfw 요소가</p>
+      <p class="p gap">계정 예쁘게 쓰는 편이라 강박적으로 멘션이나 트윗 삭제하고 해요 관련 행동에 악의는 전혀 존재하지 않습니다 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
+
+      <p class="p gap">사이버 스토킹 내지 사찰과 관련되어 안 좋은 기억이 있으며 관련 일들에 의해 현재까지 스트레스 받고 있을 만큼 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
+
+      <p class="p"><b>NG</b> / 동담 ・ AI 채팅 및 그림 소비러 내지는 이에 연관된 분 ・ 이승현 가정 폭력 정당화 및 옹호</p>
     </div>
   </section>
 
-  <!-- ===== 03 ===== -->
+  <!-- ===== 03 (3 페이지) ===== -->
   <section class="page" data-page="3">
     <div class="panel">
-      <div class="t-head"><span class="no">03</span><h2>Kiss Me Right</h2><span class="time">03:08</span></div>
-      <p class="term">con sentimento</p>
+      <div class="t-head"><span class="no">03</span><h2>my deus ex machina</h2><span class="time">名1</span></div>
+      <p class="term">sincerely yours;</p>
 
-      <p class="p">기재된 캐릭터 주력이신 분과 연결하지 않습니다</p>
-      <p class="p">* <span class="ul">1t1d</span> 배려 목적이 아니지만 자체적으로 기재한 캐릭터 포함</p>
+      <p class="p"><span class="genre">블랙배저</span> 최윤 리카르도 소르디*</p>
+      <p class="p"><span class="genre">마법명가 차남으로 살아남는 법</span> 아델베르트 호엔촐레른</p>
+      <p class="p"><span class="genre">괴담에 떨어져도 출근을 해야 하는구나</span> 김솔음 최 요원</p>
+      <p class="p"><span class="genre">망나니 1황자가 되었다</span> 이드리안 레온베르거</p>
+      <p class="p"><span class="genre">망나니 PD 아이돌로 살아남기</span> 서호윤</p>
+      <p class="p gap"><span class="genre">어린 신인데 키워주시죠</span> 한고요</p>
 
-      <div class="rows">
-        <div class="row"><div class="who"><span>anonymous</span></div><div class="chars">류이든 우재경</div></div>
-        <div class="row"><div class="who"><span>CherryMango</span></div><div class="chars">샤드 스트레이 이카로스 윈터 저스티스 해일 휴고 코드 Dr. 밴스</div></div>
-        <div class="row"><div class="who"><span>GabuU_y</span></div><div class="chars">레오 에토레</div></div>
-        <div class="row"><div class="who"><span>Ko2</span></div><div class="chars">마에스트로 베이퍼</div></div>
-        <div class="row"><div class="who"><span>meowmoon</span></div><div class="chars">로언 마티스</div></div>
-      </div>
+      <p class="p"><span class="genre">あんさんぶるスターズ！！</span> 氷鷹 北斗</p>
+      <p class="p gap"><span class="genre">プロセカ</span> 暁山 瑞希</p>
+
+      <p class="p">상기 캐릭터 드림러 더 이상 받지 않으며 자연 발생 시 후발주자 FF 정리해요</p>
     </div>
   </section>
 
   <div class="nav">
-    <button id="prev">← prev</button>
-    <span class="mid" id="mid">cresc.</span>
-    <button id="next">next →</button>
+    <button id="prev">〈 prev</button>
+    <span class="mid" id="mid">broken wings⋯</span>
+    <button id="next">next 〉</button>
   </div>
 </div>
 
@@ -199,7 +206,7 @@
   const prev = document.getElementById('prev');
   const next = document.getElementById('next');
   let cur = 0;
-  function show(n) {
+  var show = function (n) {
     cur = Math.max(0, Math.min(pages.length - 1, n));
     document.body.dataset.p = cur;
     pages.forEach((p, i) => p.classList.toggle('active', i === cur));
@@ -210,6 +217,114 @@
   next.onclick = () => show(cur + 1);
   document.querySelectorAll('[data-go]').forEach(el => el.onclick = () => show(+el.dataset.go));
   document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+  /* ===== 양쪽 정렬: 모든 글자(공백 포함)에 같은 간격을 분배 ===== */
+  const bodies = [...document.querySelectorAll('.page[data-page="1"] .p, .page[data-page="2"] .p, .page[data-page="3"] .p')];
+  bodies.forEach(p => {
+    let seg = 0;
+    (function walk(node) {
+      [...node.childNodes].forEach(c => {
+        if (c.nodeType === 3) {
+          const f = document.createDocumentFragment();
+          for (const ch of c.textContent) {
+            const s = document.createElement('span');
+            s.className = 'c'; s.dataset.s = seg; s.textContent = ch;
+            f.appendChild(s);
+          }
+          c.replaceWith(f);
+        } else if (c.nodeName === 'BR') { seg++; }
+        else walk(c);
+      });
+    })(p);
+  });
+
+  function justify(p) {
+    const chars = [...p.querySelectorAll('.c')];
+    chars.forEach(c => c.style.marginRight = '');
+    const W = p.clientWidth;
+    const lines = [];
+    let prevTop = null;
+    chars.forEach(c => {
+      const r = c.getBoundingClientRect();
+      if (prevTop === null || r.top > prevTop + 3) { lines.push([]); prevTop = r.top; }
+      lines[lines.length - 1].push({ c, r });
+    });
+    const jobs = [];
+    lines.forEach((ln, i) => {
+      while (ln.length && ln[ln.length - 1].r.width === 0) ln.pop();
+      if (ln.length < 2 || !lines[i + 1] || !lines[i + 1][0]) return;
+      if (lines[i + 1][0].c.dataset.s !== ln[ln.length - 1].c.dataset.s) return; // <br> 앞줄은 정렬 X
+      const nat = ln[ln.length - 1].r.right - ln[0].r.left;
+      const extra = (W - nat - 0.6) / (ln.length - 1);
+      if (extra > 0 && extra < 6) jobs.push([ln, extra]);
+    });
+    jobs.forEach(([ln, extra]) => ln.slice(0, -1).forEach(o => o.c.style.marginRight = extra + 'px'));
+  }
+  /* 마지막 줄이 애매하게 한두 글자만 넘어가지 않도록 페이지별 글자 크기 자동 조정 */
+  function lastRatio(p) {
+    const chars = [...p.querySelectorAll('.c')];
+    chars.forEach(c => c.style.marginRight = '');
+    const W = p.clientWidth;
+    let prevTop = null; const lines = [];
+    chars.forEach(c => {
+      const r = c.getBoundingClientRect();
+      if (prevTop === null || r.top > prevTop + 3) { lines.push([]); prevTop = r.top; }
+      lines[lines.length - 1].push(r);
+    });
+    if (lines.length < 2) return 1;
+    const ln = lines[lines.length - 1];
+    while (ln.length && ln[ln.length - 1].width === 0) ln.pop();
+    if (!ln.length) return 1;
+    return (ln[ln.length - 1].right - ln[0].left) / W;
+  }
+  function sizeOrder(lo, hi) {
+    const a = [10];
+    for (let d = 1; d <= 20; d++) {
+      const dn = +(10 - d * 0.1).toFixed(1), up = +(10 + d * 0.1).toFixed(1);
+      if (dn >= lo) a.push(dn);
+      if (up <= hi) a.push(up);
+    }
+    return a;
+  }
+  /* 1·2페이지: 문단마다 마지막 줄이 충분히 차도록 글자 크기를 살짝씩 조정 */
+  function fitPara(p) {
+    let best = 10, bestScore = -1;
+    for (const sz of sizeOrder(9.4, 10.6)) {
+      p.style.setProperty('--fs', sz + 'px');
+      const sc = lastRatio(p);
+      if (sc >= 0.55) { best = sz; bestScore = sc; break; }
+      if (sc > bestScore) { bestScore = sc; best = sz; }
+    }
+    p.style.setProperty('--fs', best + 'px');
+  }
+  /* 3페이지: 목록이라 한 크기로 통일, 모든 줄이 한 줄에 들어가게 */
+  function fitPage(pg) {
+    if (pg._fit) return;
+    const ps = [...pg.querySelectorAll('.p')];
+    if (pg.dataset.page === '3') {
+      let best = 10, bestScore = -1;
+      for (const sz of sizeOrder(8.6, 10.6)) {
+        pg.style.setProperty('--fs', sz + 'px');
+        const sc = Math.min(...ps.map(lastRatio));
+        if (sc >= 0.6) { best = sz; bestScore = sc; break; }
+        if (sc > bestScore) { bestScore = sc; best = sz; }
+      }
+      pg.style.setProperty('--fs', best + 'px');
+    } else {
+      ps.forEach(fitPara);
+    }
+    pg._fit = true;
+  }
+  function justifyCur() {
+    const pg = pages[cur];
+    if (cur === 0) return;
+    if (cur === 3) return; // 3페이지는 목록이라 양쪽 정렬 안 함
+    pg.querySelectorAll('.p').forEach(justify);
+  }
+  const _show = show;
+  show = function (n) { _show(n); requestAnimationFrame(justifyCur); };
+  window.addEventListener('resize', () => { pages.forEach(p => p._fit = false); justifyCur(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(justifyCur);
+
   show(0);
 </script>
 </body>

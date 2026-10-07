@@ -18,7 +18,7 @@
   html, body { background: var(--bg); color: var(--fg); }
   body {
     font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.9px;
     line-height: 1.3;
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
@@ -33,6 +33,8 @@
     justify-content: center;
     padding: 32px 16px;
   }
+  /* 모든 요소 자간 -0.9px 통일 */
+  *, *::before, *::after { letter-spacing: -0.9px; }
 
   /* PC·모바일 동일 너비(고정) */
   .wrap { width: 280px; max-width: 100%; text-align: left; flex: none; }
@@ -164,9 +166,9 @@
 
       <p class="p gap">팔로우 정리 잦으며 겹드림러가 오픈 성향일 지라도 타임라인에 존재할 경우 제 쪽에서 먼저 팔로우 걸어도 반드시 거절해 주세요 블락 이외의 정리 후 재연결은 상관하지 않으나 거절할 가능성이 큽니다</p>
 
-      <p class="p gap">계정 예쁘게 쓰는 편이라 강박적으로 멘션이나 트윗 삭제하고 해요 관련 행동에 악의는 전혀 존재하지 않습니다 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
+      <p class="p gap">강박적으로 멘션이나 트윗 삭제하고 해요 관련 행동에 악의는 전혀 존재하지 않습니다 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
 
-      <p class="p gap">사찰 및 견제와 관련되어 안 좋은 기억이 있으며 관련 일들에 의해 현재까지 스트레스 받고 있을 만큼 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
+      <p class="p gap">사이버 스토킹 및 견제와 관련되어 안 좋은 기억이 있으며 관련 일들에 의해 현재까지 스트레스 받고 있을 정도로 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
 
       <p class="p"><b>NG</b> / 동담・AI 채팅 및 그림 소비러 내지는 이에 연관된 분</p>
     </div>
@@ -214,7 +216,7 @@
   next.onclick = () => show(cur + 1);
   document.querySelectorAll('[data-go]').forEach(el => el.onclick = () => show(+el.dataset.go));
   document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
-  /* ===== 양쪽 정렬: 모든 글자(공백 포함)에 같은 간격을 분배 ===== */
+  /* ===== 양쪽 정렬: 글자 간격은 최소로, 남는 폭은 띄어쓰기에 분배 ===== */
   const bodies = [...document.querySelectorAll('.page[data-page="1"] .p, .page[data-page="2"] .p, .page[data-page="3"] .p')];
   bodies.forEach(p => {
     let seg = 0;
@@ -234,6 +236,8 @@
     })(p);
   });
 
+  const MAX_LETTER = 0.3; // 글자 사이 최대 추가 간격(px)
+
   function justify(p) {
     const chars = [...p.querySelectorAll('.c')];
     chars.forEach(c => c.style.marginRight = '');
@@ -251,10 +255,25 @@
       if (ln.length < 2 || !lines[i + 1] || !lines[i + 1][0]) return;
       if (lines[i + 1][0].c.dataset.s !== ln[ln.length - 1].c.dataset.s) return; // <br> 앞줄은 정렬 X
       const nat = ln[ln.length - 1].r.right - ln[0].r.left;
-      const extra = (W - nat - 0.6) / (ln.length - 1);
-      if (extra > 0 && extra < 6) jobs.push([ln, extra]);
+      const total = W - nat - 0.6;
+      if (total <= 0 || total / (ln.length - 1) >= 6) return;
+      jobs.push([ln, total]);
     });
-    jobs.forEach(([ln, extra]) => ln.slice(0, -1).forEach(o => o.c.style.marginRight = extra + 'px'));
+    jobs.forEach(([ln, total]) => {
+      const body = ln.slice(0, -1);
+      const letterAdd = Math.min(MAX_LETTER, total / body.length);
+      const rest = total - letterAdd * body.length;
+      const spaces = body.filter(o => o.c.textContent === ' ');
+      body.forEach(o => {
+        let add = letterAdd;
+        if (rest > 0 && spaces.length) {
+          if (o.c.textContent === ' ') add += rest / spaces.length;
+        } else if (rest > 0) {
+          add += rest / body.length; // 띄어쓰기 없는 줄은 글자에 균등 분배
+        }
+        o.c.style.marginRight = add + 'px';
+      });
+    });
   }
   /* 마지막 줄이 애매하게 한두 글자만 넘어가지 않도록 페이지별 글자 크기 자동 조정 */
   function lastRatio(p) {

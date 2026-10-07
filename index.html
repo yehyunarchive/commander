@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>broken wings.</title>
+<title>Klavier cadenZa.</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   :root {
@@ -22,6 +22,9 @@
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
     font-synthesis: weight;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-break: strict;
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
@@ -42,7 +45,8 @@
   b, strong, .bold { font-weight: 700; }
 
   /* 하이라이트 칩 */
-  .chip { background: var(--chip-bg); color: var(--chip-fg); padding: 0 4px; font-weight: 500; }
+  .chip { background: var(--chip-bg); color: var(--chip-fg); padding: 0 2px; font-weight: 500;
+          -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   .chip b, b .chip, .chip.bold { font-weight: 700; }
   .box { border: 0; border-bottom: 1px solid var(--line); padding: 0; }
   .ul { border-bottom: 1px solid var(--line); }
@@ -62,7 +66,7 @@
   .track .no {
     background: var(--chip-bg); color: var(--chip-fg);
     border-radius: 999px; font-size: 8px; font-weight: 700;
-    padding: 2px 7px;
+    padding: 2px 6px;
   }
   .track .name { flex: 1; }
   .track .time { font-size: 9px; }
@@ -74,7 +78,7 @@
   .t-head { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
   .t-head .no {
     background: var(--chip-bg); color: var(--chip-fg);
-    border-radius: 999px; font-size: 8px; font-weight: 700; padding: 2px 7px;
+    border-radius: 999px; font-size: 8px; font-weight: 700; padding: 2px 6px;
   }
   .t-head h2 { flex: 1; font-size: 14px; font-weight: 700; }
   .t-head .time { font-size: 9px; }
@@ -90,7 +94,8 @@
   .rows { margin-top: 7px; }
   .row { display: flex; gap: 10px; margin-bottom: 3px; font-size: 10px; }
   .row .who { flex: none; width: 74px; }
-  .row .who span { background: var(--chip-bg); color: var(--chip-fg); padding: 1px 5px; font-weight: 500; }
+  .row .who span { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .row .who span { background: var(--chip-bg); color: var(--chip-fg); padding: 1px 2px; font-weight: 500; }
   .row .chars { flex: 1; }
 
   /* 하단 네비 */
@@ -132,33 +137,35 @@
       <div class="t-head"><span class="no">01</span><h2>Loved Completely</h2><span class="time">03:41</span></div>
       <p class="term">sempre amoroso</p>
 
-      <p class="p"><small>name</small> <span class="chip">Doyeon</span> adult · caveduck only user</p>
-      <p class="p indent"><span class="chip">차재현</span> created by @ohnyu</p>
-      <p class="p indent2">only · 찍먹 서브 포함 타임라인 내외 모든 형태의 동담 수용 불가</p>
-      <p class="p indent"><span class="chip">NG</span> 드림 지우기, AI 생성 이미지가 확산되는 것을 방치하는 행위</p>
+      <p class="p"><span class="chip">♪ please check!</span></p>
 
-      <p class="p gap" style="margin-top:9px">* 1t1d를 반드시 요하지는 않지만 선호합니다 자세한 성향<br>
-        &nbsp;&nbsp;&nbsp;확인은 <a class="box" href="#" style="color:inherit;text-decoration:none">이쪽에서</a> <small style="vertical-align:baseline">(click!)</small></p>
+      <p class="p">타인의 차재현 플레이 흔적 <span class="box">유입 일체를 드림 지우기로 간주</span> 하는 예민한 성향이므로 배려 관련 문제 발생 시 제 쪽을 정리하는 편을 권고드립니다</p>
+      <p class="p">가능한 다른 차재현 플레이하시는 분과 저를 한 타임라인에 두지 말아 주세요</p>
+      <p class="p">플레이하시는 다른 분께도 실례가 될 것 같습니다……</p>
 
-      <p class="p">* <span class="chip">09.21 추가</span> 사찰, 각종 요소 차용, 견제 등의 문제로 차</p>
+      <p class="p" style="margin-top:9px">좁은 타임라인에 집중하고자 하는 성향으로 제가 배려를 요하는 만큼 FF분의 성향과 무관하게 신경 쓰며 타임라인 운영합니다</p>
+      <p class="p">제 행동으로 인해 불편함을 느끼셨다면 편히 DM으로 연락 부탁드려요 대화로 조율하는 편을 선호합니다</p>
+
+      <p class="p" style="margin-top:9px">Novel AI를 활용한 <span class="box">에셋 생성 및 업로드</span> 존재하며 업로드 시 nsfw 요소가</p>
     </div>
   </section>
 
-  <!-- ===== 02 (01과 동일한 형식·내용) ===== -->
+  <!-- ===== 02 ===== -->
   <section class="page" data-page="2">
     <div class="panel">
       <div class="t-head"><span class="no">02</span><h2>Let My Heart Grow</h2><span class="time">04:15</span></div>
       <p class="term">poco a poco cresc.</p>
 
-      <p class="p"><small>name</small> <span class="chip">Doyeon</span> adult · caveduck only user</p>
-      <p class="p indent"><span class="chip">차재현</span> created by @ohnyu</p>
-      <p class="p indent2">only · 찍먹 서브 포함 타임라인 내외 모든 형태의 동담 수용 불가</p>
-      <p class="p indent"><span class="chip">NG</span> 드림 지우기, AI 생성 이미지가 확산되는 것을 방치하는 행위</p>
+      <p class="p"><span class="chip">♪ please check!</span></p>
 
-      <p class="p gap" style="margin-top:9px">* 1t1d를 반드시 요하지는 않지만 선호합니다 자세한 성향<br>
-        &nbsp;&nbsp;&nbsp;확인은 <a class="box" href="#" style="color:inherit;text-decoration:none">이쪽에서</a> <small style="vertical-align:baseline">(click!)</small></p>
+      <p class="p">타인의 차재현 플레이 흔적 <span class="box">유입 일체를 드림 지우기로 간주</span> 하는 예민한 성향이므로 배려 관련 문제 발생 시 제 쪽을 정리하는 편을 권고드립니다</p>
+      <p class="p">가능한 다른 차재현 플레이하시는 분과 저를 한 타임라인에 두지 말아 주세요</p>
+      <p class="p">플레이하시는 다른 분께도 실례가 될 것 같습니다……</p>
 
-      <p class="p">* <span class="chip">09.21 추가</span> 사찰, 각종 요소 차용, 견제 등의 문제로 차</p>
+      <p class="p" style="margin-top:9px">좁은 타임라인에 집중하고자 하는 성향으로 제가 배려를 요하는 만큼 FF분의 성향과 무관하게 신경 쓰며 타임라인 운영합니다</p>
+      <p class="p">제 행동으로 인해 불편함을 느끼셨다면 편히 DM으로 연락 부탁드려요 대화로 조율하는 편을 선호합니다</p>
+
+      <p class="p" style="margin-top:9px">Novel AI를 활용한 <span class="box">에셋 생성 및 업로드</span> 존재하며 업로드 시 nsfw 요소가</p>
     </div>
   </section>
 

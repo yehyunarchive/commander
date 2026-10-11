@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>dear</title>
+<title>성향글</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -25,10 +25,11 @@
   /* ---------- page 1 ---------- */
   #page1 .wrap{text-align:center}
   #photo{
-    display:block;width:170px;aspect-ratio:3/4;
-    border:0;background:transparent;overflow:hidden;cursor:pointer;margin:0 auto;
+    display:block;width:170px;
+    border:0;background:transparent;cursor:pointer;margin:0 auto;
   }
-  #photo img{width:100%;height:100%;object-fit:cover;display:block}
+  /* 사진 비율 그대로 (잘리지 않음). 너비는 위 width 값으로 조절 */
+  #photo img{width:100%;height:auto;max-height:80vh;object-fit:contain;display:block}
   #photo img[src=""]{display:none}
   #page1 .click{margin-top:10px;font-size:9.5px;letter-spacing:-0.6px;line-height:1.35}
 
@@ -210,7 +211,7 @@
   <div class="label">NOTICE</div>
   <p class="ln"><span class="tag">배경</span> 캐릭터 발생 시 친분 무관 블락</p>
   <hr>
-  <p class="ln"><b>블랙배저</b> ·  <span class="tag">리카르도 소르디</span>, <b>최윤</b></p>
+  <p class="ln"><b></b><b>블랙배저</b> · <span class="tag">리카르도 소르디</span>, <b>최윤</b><b></b></p>
   <p class="ln"><b>마법명가 차남으로 살아남는 법 </b>· 아델베르트 호엔촐레른</p>
   <p class="ln"><b>괴담에 떨어져도 출근을 해야 하는구나</b> · 김솔음, 최 요원</p>
   <p class="ln"><b>망나니 PD 아이돌로 살아남기</b> · 서효윤</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>성향글</title>
+<title>dear</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -25,10 +25,10 @@
   /* ---------- page 1 ---------- */
   #page1 .wrap{text-align:center}
   #photo{
-    display:block;width:170px;
+    display:block;width:min(320px,82vw);
     border:0;background:transparent;cursor:pointer;margin:0 auto;
   }
-  /* 사진 비율 그대로 (잘리지 않음). 너비는 위 width 값으로 조절 */
+  /* 사진 비율 그대로 (잘리지 않음). 너비는 위 width 값으로 조절 (예: min(320px,82vw) → 숫자 키우면 더 커짐) */
   #photo img{width:100%;height:auto;max-height:80vh;object-fit:contain;display:block}
   #photo img[src=""]{display:none}
   #page1 .click{margin-top:10px;font-size:9.5px;letter-spacing:-0.6px;line-height:1.35}
@@ -207,7 +207,7 @@
 
 <article class="card" id="card2">
   <div class="meta"><span>( <i>名1</i>  )</span></div>
-  <div class="id-row"><span class="tag">LIST </span> 상기 캐릭터 드림러 더 이상 받지 않으며 자연 발생 시 후발주자 FF 정리해요</div>
+  <div class="id-row"><span class="tag">LIST</span> 상기 캐릭터 드림러 더 이상 받지 않으며 자연 발생 시 후발주자 FF 정리해요</div>
   <div class="label">NOTICE</div>
   <p class="ln"><span class="tag">배경</span> 캐릭터 발생 시 친분 무관 블락</p>
   <hr>

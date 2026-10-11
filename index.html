@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>dear</title>
+<title>성향글</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -38,8 +38,8 @@
   #frame{position:relative;width:340px;height:450px}
   /* location: 화면(뷰포트) 모서리에 고정 → 별자리와 떨어짐. 위치는 아래 값만 바꾸면 됩니다 */
   /* location: 별자리 프레임 기준 우측 상단 (폰/PC 모두 별자리와의 거리가 같게) */
-  #loc{position:absolute;top:-34px;right:-10px;font-size:8.5px;line-height:1.4;letter-spacing:-0.6px;text-align:left}
-  @media (min-width:600px){ #loc{top:-100px;right:-80px} }
+  #loc{position:absolute;top:-34px;right:12px;font-size:8.5px;line-height:1.4;letter-spacing:-0.6px;text-align:right}
+  @media (min-width:600px){ #loc{top:-100px;right:-40px} }
   /* 별자리: 프레임 정중앙 + 이전보다 크게 (290x420) */
   #stage{position:absolute;left:25px;top:15px;width:290px;height:420px}
   #stage svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
@@ -128,7 +128,7 @@
 <section class="page hide" id="page2">
   <div id="frame">
     <div id="loc">
-      location<br>
+      <b>location</b><br>
       centercore<br>
       α CMa · RA 06h 45m 08.9s<br>
       Dec −16° 42′ 58″
@@ -320,7 +320,8 @@
     const cy = st.top + st.height * (1090 / 2310);
     const lx = l.left + l.width / 2, ly = l.top + l.height / 2;
     const PULL = 0.75; // 1 = 완전 점대칭, 작을수록 별자리 중심 쪽으로 가까워짐
-    const tx = cx + (cx - lx) * PULL, ty = cy + (cy - ly) * PULL;
+    const down = window.innerWidth < 600 ? 40 : 30; // 폰 40 / PC·태블릿 30 만큼 아래로 (숫자 키우면 더 아래)
+    const tx = cx + (cx - lx) * PULL, ty = cy + (cy - ly) * PULL + down;
     const w = fgEl.offsetWidth, h = fgEl.offsetHeight;
     fgEl.style.left = (tx - w / 2 - f.left) + 'px';
     fgEl.style.top  = (ty - h / 2 - f.top) + 'px';

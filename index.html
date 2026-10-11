@@ -39,9 +39,9 @@
   /* location: 화면(뷰포트) 모서리에 고정 → 별자리와 떨어짐. 위치는 아래 값만 바꾸면 됩니다 */
   /* location: 별자리 프레임 기준 우측 상단 (폰/PC 모두 별자리와의 거리가 같게) */
   #loc{position:absolute;top:-34px;right:12px;font-size:8.5px;line-height:1.4;letter-spacing:-0.6px;text-align:right}
-  @media (min-width:600px){ #loc{top:-100px;right:-40px} }
+  @media (min-width:600px){ #loc{top:-60px;right:-40px} }
   /* 별자리: 프레임 정중앙 + 이전보다 크게 (290x420) */
-  #stage{position:absolute;left:25px;top:15px;width:290px;height:420px}
+  #stage{position:absolute;left:13.5px;top:19.5px;width:290px;height:420px}
   #stage svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
   .line{stroke:#111;stroke-width:0.8px;fill:none;vector-effect:non-scaling-stroke}
   .star{cursor:pointer;outline:none}
@@ -316,12 +316,11 @@
     const l = locEl.getBoundingClientRect();
     if (!f.width) return;
     // 별자리 실제 중심 (viewBox 1596x2310 기준 별들이 차지하는 범위의 중앙)
-    const cx = st.left + st.width * (798 / 1596);
-    const cy = st.top + st.height * (1090 / 2310);
+    const cx = st.left + st.width * (861 / 1596);
+    const cy = st.top + st.height * (1131 / 2310);
     const lx = l.left + l.width / 2, ly = l.top + l.height / 2;
-    const PULL = 0.75; // 1 = 완전 점대칭, 작을수록 별자리 중심 쪽으로 가까워짐
-    const down = window.innerWidth < 600 ? 40 : 30; // 폰 40 / PC·태블릿 30 만큼 아래로 (숫자 키우면 더 아래)
-    const tx = cx + (cx - lx) * PULL, ty = cy + (cy - ly) * PULL + down;
+    const PULL = 1; // 1 = 완전 점대칭 (location 과 같은 거리·반대 방향)
+    const tx = cx + (cx - lx) * PULL, ty = cy + (cy - ly) * PULL;
     const w = fgEl.offsetWidth, h = fgEl.offsetHeight;
     fgEl.style.left = (tx - w / 2 - f.left) + 'px';
     fgEl.style.top  = (ty - h / 2 - f.top) + 'px';

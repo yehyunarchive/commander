@@ -1,349 +1,356 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Broken wings⋯</title>
+<title>성향글</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
-  :root {
-    --bg: #fff;
-    --fg: #000;
-    --line: #000;
-    --chip-bg: #000;
-    --chip-fg: #fff;
-    --gray: #8a8a8a;
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:#fff;color:#111;overflow:hidden}
+  body{
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    letter-spacing:-0.6px;
+    line-height:1.35;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--fg); }
-  body {
-    font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
-    letter-spacing: -0.9px;
-    line-height: 1.3;
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
-    font-synthesis: weight;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    line-break: strict;
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
+
+  /* ---------- pages ---------- */
+  .page{
+    position:fixed;inset:0;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .6s ease, visibility .6s ease;
   }
-  /* 모든 요소 자간 -0.9px 통일 */
-  *, *::before, *::after { letter-spacing: -0.9px; }
+  .page.hide{opacity:0;visibility:hidden;pointer-events:none}
 
-  /* PC·모바일 동일 너비(고정) */
-  .wrap { width: 280px; max-width: 100%; text-align: left; flex: none; }
-
-  .page { display: none; }
-  .page.active { display: block; }
-
-  .panel { max-height: 70vh; max-height: 70dvh; overflow-y: auto; padding: 6px 0 16px; }
-
-  /* 볼드 */
-  b, strong, .bold { font-weight: 700; }
-
-  /* 괄호 회색 */
-  .gray { color: var(--gray); }
-
-  /* 하이라이트 칩 */
-  .chip { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 2px; font-weight: 500;
-          -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  .chip b, b .chip, .chip.bold { font-weight: 700; }
-  .box { border: 0; padding: 0; text-decoration: underline; text-decoration-thickness: 0.7px; text-underline-offset: 2px; text-decoration-skip-ink: none; }
-  .ul { text-decoration: underline; text-decoration-thickness: 0.7px; text-underline-offset: 2px; text-decoration-skip-ink: none; }
-
-  /* 장르명 (검은 배경) */
-  .genre { background: linear-gradient(var(--chip-bg), var(--chip-bg)) no-repeat center / 100% 1.18em; color: var(--chip-fg); padding: 0 2px; margin-right: 5px; font-weight: 500;
-           -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-
-  /* 리스트 페이지 */
-  .head { font-size: 10.5px; font-weight: 500; margin-bottom: 10px; }
-  .head sup { font-size: 6.5px; font-weight: 400; }
-  .intro { font-size: 9.5px; line-height: 1.3; margin-bottom: 10px; }
-  .intro .box { font-size: 9.5px; }
-
-  .tracks { border-top: 1px solid var(--line); }
-  .track {
-    display: flex; align-items: center; gap: 12px;
-    padding: 6px 5px; border-bottom: 1px solid var(--line);
-    cursor: pointer; font-size: 10.5px;
+  /* ---------- page 1 ---------- */
+  #page1 .wrap{text-align:center}
+  #photo{
+    display:block;width:170px;aspect-ratio:3/4;
+    border:0;background:transparent;overflow:hidden;cursor:pointer;margin:0 auto;
   }
-  .track .no {
-    background: var(--chip-bg); color: var(--chip-fg);
-    border-radius: 999px; font-size: 8px; font-weight: 700;
-    padding: 1px 6px;
-  }
-  .track .name { flex: 1; }
-  .track .time { font-size: 9px; }
-  .track:last-child { border-bottom: 0; }
-  .page[data-page="0"] .panel { padding-bottom: 0; }
-  body[data-p="0"] .nav { margin-top: 0; }
+  #photo img{width:100%;height:100%;object-fit:cover;display:block}
+  #photo img[src=""]{display:none}
+  #page1 .click{margin-top:10px;font-size:9.5px;letter-spacing:-0.6px;line-height:1.35}
 
-  /* 트랙 페이지 */
-  .t-head { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-  .t-head .no {
-    background: var(--chip-bg); color: var(--chip-fg);
-    border-radius: 999px; font-size: 8px; font-weight: 700; padding: 1px 6px;
-  }
-  .t-head h2 { flex: 1; font-size: 14px; font-weight: 700; }
-  .t-head .time { font-size: 9px; }
-  .term { font-size: 9px; margin-bottom: 8px; }
+  /* ---------- page 2 (모바일/PC 동일한 고정 크기) ---------- */
+  /* location ↔ 별자리 간격: frame 높이와 #stage top을 같이 늘렸습니다 (아래 숫자만 바꾸면 조절 가능) */
+  #frame{position:relative;width:340px;height:450px}
+  /* location: 화면(뷰포트) 모서리에 고정 → 별자리와 떨어짐. 위치는 아래 값만 바꾸면 됩니다 */
+  /* location: 별자리 프레임 기준 우측 상단 (폰/PC 모두 별자리와의 거리가 같게) */
+  #loc{position:absolute;top:-34px;right:-10px;font-size:8.5px;line-height:1.4;letter-spacing:-0.6px;text-align:left}
+  @media (min-width:600px){ #loc{top:-100px;right:-80px} }
+  /* 별자리: 프레임 정중앙 + 이전보다 크게 (290x420) */
+  #stage{position:absolute;left:25px;top:15px;width:290px;height:420px}
+  #stage svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+  .line{stroke:#111;stroke-width:0.8px;fill:none;vector-effect:non-scaling-stroke}
+  .star{cursor:pointer;outline:none}
+  .lbl{position:absolute;font-size:9px;letter-spacing:-0.6px;line-height:1.35;white-space:nowrap;color:#111}
+  /* 망각은 축복이었을 텐데: 기울임 + 작게 + 원에서 더 멀리 */
+  .lbl.fg{font-size:7.5px;font-style:italic;letter-spacing:-0.4px;left:0;top:0}
+  .lbl.sat{font-size:7.5px;letter-spacing:-0.4px;line-height:1.4}
 
-  /* 본문: 양쪽 정렬 */
-  .p { font-size: var(--fs, 10px); margin-bottom: 3px; }
-  .c { display: inline; }
-  .page[data-page="3"] .p { margin-bottom: 3px; }
-  .page[data-page="3"] .p.gap { margin-bottom: 6px; }
-  .p.gap { margin-bottom: 9px; }
-  .p small { font-size: 7.5px; vertical-align: super; }
-  .indent { padding-left: 20px; }
-  .indent2 { padding-left: 56px; }
-  .ml { display: block; margin-left: 20px; }
+  /* ---------- popup ---------- */
+  #overlay{
+    position:fixed;inset:0;z-index:50;
+    background:rgba(0,0,0,.22);
+    display:flex;align-items:center;justify-content:center;
+    padding:16px;
+    opacity:0;visibility:hidden;
+    transition:opacity .4s ease, visibility .4s ease;
+    cursor:pointer;
+  }
+  #overlay.on{opacity:1;visibility:visible}
+  .card{
+    display:none;
+    width:300px;max-width:100%;max-height:84vh;max-height:84dvh;overflow:auto;
+    background:#fff;border-radius:20px;
+    padding:16px 15px 18px;
+    box-shadow:0 3px 12px rgba(0,0,0,.10);
+    font-size:9px;letter-spacing:-0.6px;line-height:1.35;
+  }
+  .card.show{display:block}
 
-  /* 하단 네비 */
-  .nav {
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid var(--line); margin-top: 7px; padding-top: 12px;
-    font-size: 9.5px;
-  }
-  .nav button {
-    background: none; border: 0; color: var(--fg); font: inherit;
-    letter-spacing: inherit; cursor: pointer; padding: 2px 0;
-  }
-  .nav .mid { font-weight: 500; }
-  .nav button:disabled { opacity: .3; cursor: default; }
+  .meta{display:flex;margin-bottom:11px;font-size:9px}
+  .meta span:first-child{flex:0 0 46%}
+  .meta span:last-child{flex:1}
+
+  /* 검은 배경 = 형광펜처럼 얇게 */
+  .tag{display:inline;background:#111;color:#fff;padding:.3px 3px;font-size:9.5px;line-height:1.35;
+       -webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .tag.sm{font-size:9px;padding:.3px 3px}
+  .id-row{font-size:9px;margin-bottom:10px}
+  .id-row .row2{margin-top:3px}
+  .label{font-size:7.5px;color:#999;letter-spacing:1px;margin-bottom:2px;font-weight:500}
+  .block{margin-bottom:9px}
+  .block p{font-size:9px}
+  hr{border:0;border-top:1px solid #111;margin:11px 0 12px}
+  .para{font-size:9px;margin-bottom:9px}
+  .para .n{font-size:8px;margin-right:2px}
+  .notice-bar{display:inline;background:#111;color:#fff;padding:.3px 3px;font-size:9px;line-height:1.7;
+              -webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .notice-wrap{margin:0 0 10px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+  .two p{font-size:9px;line-height:1.5}
+
+  .marked-sq{display:inline-block;width:8px;height:8px;background:#111;vertical-align:-1px;margin-left:5px}
+
+  .grp{margin-bottom:9px}
+  .grp .h{font-weight:700;font-size:10px;margin-bottom:4px}
+  .grp .h small{font-weight:400;font-size:8px;color:#999;margin-left:4px}
+  .ln{font-size:9px;line-height:1.5;margin-bottom:6px}
+  .ln b{font-weight:700}
+  .ln small{font-size:8px;color:#999}
+  .mk{background:#111;color:#fff;padding:.3px 3px}
+  .pills{display:flex;flex-wrap:wrap;gap:3px 9px}
+  .pill{font-size:9px;line-height:1.35}
+  .pill.on{background:#111;color:#fff;padding:.3px 3px;margin:0 -3px}
+.card{width:300px}
+.meta,.id-row,.para,.ln,.two p{font-size:9px}
+.tag{font-size:inherit;padding:0.3px 3px}
+.g{font-size:8px;color:#999}
+.ln b,.id-row b{font-weight:700}
+.card>:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- ===== 리스트 ===== -->
-  <section class="page active" data-page="0">
-    <div class="panel">
-      <p class="head"><span class="chip">@flectsne</span> 20<sup>+</sup> <span style="font-weight:400">(only)</span> 블랙배저 <b>이예현</b></p>
-      <p class="intro">
-        반 이입 동담 거부 성향으로 동장르 포함 상호 名1 필수<br>
-        소수계 지향으로 팔로우 정리 잦으나 악의 X
-      </p>
-      <div class="tracks">
-        <div class="track" data-go="1"><span class="no">01</span><span class="name">dear my commander</span><span class="time">12:26</span></div>
-        <div class="track" data-go="2"><span class="no">02</span><span class="name">Poème, Op. 25</span><span class="time">09:26</span></div>
-        <div class="track" data-go="3"><span class="no">03</span><span class="name">deus ex machina</span><span class="time">01:32</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 01 (1 페이지) ===== -->
-  <section class="page" data-page="1">
-    <div class="panel">
-      <div class="t-head"><span class="no">01</span><h2>dear my commander</h2><span class="time">notice</span></div>
-
-      <p class="p" style="margin-bottom:12px"><span class="chip">Careful reading required</span></p>
-
-      <p class="p gap">상당히 예민한 성향이므로 겹드림 자연 발생 시 친분 무관 제 쪽 팔로우 재고해 주세요 동담 발견 시 <b>사적 감정 일체 없는 B</b>로 대응하며 관련된 모든 종류의 컨택 받지 않습니다 추가로 겹드림러가 있다는 사실도 알고 싶지 않습니다 고소 감 아니면 타 이예현 드림러 얘기 제게 전달하지 마세요</p>
-
-      <p class="p gap">논 커플링이 아닌 이예현 연성 유입하지 말아주세요 특히 화살표 구분없이 승현 → 윤 ← 예현 구조 동인 정말 싫어합니다⋯⋯ NL 성향으로 블랙배저 내 모든 캐릭터 디폴트 논 로맨스 최대 조합으로 소비해요 <span class="gray">(이예현 관련 CP 아니면 흐린 눈)</span></p>
-
-      <p class="p gap">블랙배저 외전까지의 모든 내용 및 중요한 포인트 요소 등 별도로 기능 사용하지 않습니다 이와 별개로 이예현 서사 중 <b>아동 폭력 및 방임</b> 등 개개인의 트라우마를 자극할 만한 소재가 다수 존재함과 동시에 계정에서 필터링 없이 언급하므로 불편하다 느끼실 경우에는 적극적인 기능 활용 권장합니다</p>
-
-      <p class="p">개인 봇 언급 잦습니다 해당 문화에 부정적인 인식 가지고 있으실 경우 팔로우 X</p>
-    </div>
-  </section>
-
-  <!-- ===== 02 (2 페이지) ===== -->
-  <section class="page" data-page="2">
-    <div class="panel">
-      <div class="t-head"><span class="no">02</span><h2>Poème, Op. 25</h2><span class="time">fyi</span></div>
-
-      <p class="p" style="margin-bottom:12px"><span class="chip">from to my eternity</span></p>
-
-      
-
-      <p class="p gap">팔로우 정리 잦으며 겹드림러가 오픈 성향일 지라도 타임라인에 존재할 경우 제 쪽에서 먼저 팔로우 걸어도 반드시 거절해 주세요 블락 이외의 정리 후 재연결은 상관하지 않으나 거절할 가능성이 큽니다</p>
-
-      <p class="p gap">강박적으로 멘션이나 트윗 삭제하곤 합니다 관련 행동에 악의는 전혀 존재하지 않아요 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
-
-      <p class="p gap">사이버 스토킹 내지는 사찰과 관련해 안 좋은 기억이 여럿 존재하며 관련 일에 의해 현재까지 스트레스 받고 있을 정도로 예민합니다 계정 들어오셔서 의도적으로 조회수 늘리기 및 대리 견제 등 악의 담긴 행동 일절 하지 마세요⋯⋯</p>
-
-      <p class="p"><b>NG</b> / 동담・AI 채팅 및 그림 소비러 내지는 이에 연관된 분</p>
-    </div>
-  </section>
-
-  <!-- ===== 03 (3 페이지) ===== -->
-  <section class="page" data-page="3">
-    <div class="panel">
-      <div class="t-head"><span class="no">03</span><h2>my deus ex machina</h2><span class="time">名1</span></div>
-
-      <p class="p"><span class="genre">블랙배저</span> <b>최윤</b> 리카르도 소르디*</p>
-      <p class="p"><span class="genre">마법명가 차남으로 살아남는 법</span> 아델베르트 호엔촐레른</p>
-      <p class="p"><span class="genre">괴담에 떨어져도 출근을 해야 하는구나</span> 김솔음 최 요원</p>
-      <p class="p"><span class="genre">망나니 1황자가 되었다</span> 이드리안 레온베르거</p>
-      <p class="p"><span class="genre">망나니 PD 아이돌로 살아남기</span> 서호윤</p>
-      <p class="p gap"><span class="genre">어린 신인데 키워주시죠</span> 한고요</p>
-
-      <p class="p"><span class="genre">あんさんぶるスターズ！！</span> 氷鷹 北斗</p>
-      <p class="p gap"><span class="genre">プロセカ</span> 暁山 瑞希</p>
-
-      <p class="p">상기 캐릭터 드림러 더 이상 받지 않으며 자연 발생 시 후발주자 FF 정리해요</p>
-    </div>
-  </section>
-
-  <div class="nav">
-    <button id="prev">〈 prev</button>
-    <span class="mid" id="mid">broken wings⋯</span>
-    <button id="next">next 〉</button>
+<!-- ================= PAGE 1 ================= -->
+<section class="page" id="page1">
+  <div class="wrap">
+    <a id="photo" href="#page2"><img id="photoImg" src="" alt=""></a>
+    <div class="click">( click )</div>
   </div>
+</section>
+
+<!-- ================= PAGE 2 ================= -->
+<section class="page hide" id="page2">
+  <div id="frame">
+    <div id="loc">
+      location<br>
+      centercore<br>
+      α CMa · RA 06h 45m 08.9s<br>
+      Dec −16° 42′ 58″
+    </div>
+
+    <!-- location 과 상하좌우 반대 위치 (왼쪽 아래) -->
+    <div class="lbl fg">망각은 축복이었을 텐데</div>
+
+    <div id="stage">
+      <svg viewBox="0 0 1596 2310" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- 선 -->
+        <line class="line" x1="378" y1="711" x2="1201" y2="355"/>
+        <line class="line" x1="357" y1="827" x2="1230" y2="1256"/>
+        <line class="line" x1="1260" y1="1380" x2="856" y2="1922"/>
+
+        <!-- 별 1 (큼) -->
+        <g class="star" data-card="0" data-cx="1330" data-cy="300" data-r="105" data-size="200" tabindex="0" role="button" aria-label="about No.1">
+          <path class="shape" fill="#111"/>
+          <circle cx="1330" cy="300" r="110" fill="transparent"/>
+        </g>
+
+        <!-- 별 2 (중간) -->
+        <g class="star" data-card="1" data-cx="240" data-cy="770" data-r="60" data-size="120" tabindex="0" role="button" aria-label="about No.2">
+          <path class="shape" fill="#111"/>
+          <circle cx="240" cy="770" r="90" fill="transparent"/>
+        </g>
+
+        <!-- 별 3 (작음) -->
+        <g class="star" data-card="2" data-cx="1320" data-cy="1300" data-r="38" data-size="80" tabindex="0" role="button" aria-label="about No.3">
+          <path class="shape" fill="#111"/>
+          <circle cx="1320" cy="1300" r="80" fill="transparent"/>
+        </g>
+
+        <!-- 뚫린 원 -->
+        <g class="star" data-card="3" data-cx="820" data-cy="1970" data-size="56" tabindex="0" role="button" aria-label="about No.4">
+          <circle class="shape" cx="820" cy="1970" r="15" fill="none" stroke="#111" stroke-width="5"/>
+          <circle cx="820" cy="1970" r="80" fill="transparent"/>
+        </g>
+      </svg>
+
+      <div class="lbl" style="left:70%;top:19.5%">SIRIUS<br>α CMa N1642'</div>
+      <div class="lbl sat" style="left:8%;top:41.5%">NORAD 43013<br>COSPAR 2017-073A</div>
+      <div class="lbl sat" style="right:0;top:63%;text-align:right">NORAD 28654<br>COSPAR 2005-018A</div>
+      <div class="lbl sat" style="left:58%;top:84.5%">NORAD 41240<br>COSPAR 2016-040A</div>
+      <!-- top 값을 키우면 원에서 더 멀어지고, 줄이면 가까워집니다 -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= POPUPS ================= -->
+<div id="overlay" aria-live="polite">
+
+<article class="card" id="card0">
+  <div class="meta"><span>( <i>info</i> )</span></div>
+  <div class="id-row"><span class="tag">Eternity</span> · 20⁺</div>
+  <div class="id-row">ㄴ ♥  블랙배저 · <b>이예현</b></div>
+  <div class="label">ACCOUNTS</div>
+  <p class="ln">backup acc (@reqhycine)</p>
+  <hr>
+  <p class="para"><span class="n">(1)</span> 반 이입 온리 동담 거부 성향으로 동장르 포함 상호 名1 필수로 요합니다 겹드림 자연 발생 시 친분 무관 제 쪽 팔로우 재고해 주세요 동담 발견 시 <b>사적 감정 일체 없는 B</b>로 대응하며 관련된 모든 종류의 컨택 받지 않습니다</p>
+  <div class="id-row"><span class="tag">+ 캐릭터 특성상 아동 폭력과 같은 트리거 소재 언급이 존재할 가능성 있습니다</span></div>
+  <p class="para"><span class="n">(2)</span> 강박적으로 멘션이나 트윗 삭제하곤 합니다 관련 행동에 악의는 전혀 존재하지 않아요 맞구독 형태의 맞팔로우 지향하며 교류 중요시 여기실 경우 연결 거부해요 또한 생각해 주시는 마음은 감사하나 마음 테러 내키지 않습니다</p>
+  <p class="para"><span class="n">(3)</span> 논 커플링이 아닌 이예현 연성 유입하지 말아주세요 특히 화살표 구분없이 승현 → 윤 ← 예현 구조 동인 정말 싫어합니다⋯⋯ NL 성향으로 블랙배저 내 모든 캐릭터 디폴트 논 로맨스 최대 조합으로 소비해요 <span class="g">(이예현 관련 CP 아니면 흐린 눈)</span></p>
+  <p class="para"><span class="n">(4)</span> 개인 봇 언급 잦습니다 해당 문화에 부정적인 인식 가지고 있으실 경우 팔로우 X</p>
+</article>
+
+<article class="card" id="card1">
+  <div class="meta"><span>( <i>caution</i> )</span></div>
+  <div class="id-row"><span class="tag">NG</span></div>
+  <div class="two"><div><div class="label">CP</div><p class="ln">ㄴ 이예현 관련 모든 동인 커플링</p><p class="ln">ㄴ <b>윤예</b></p></div><div><div class="label">TIMELINE</div><p class="ln">ㄴ 잦은 수동공격</p><p class="ln">ㄴ 캐릭터 선점용 드림</p></div></div>
+  <hr>
+  <p class="para"><span class="n">(1)</span> 상기 내용 외에는 팔안굽 성향으로 보편적인 도덕 윤리를 위반하는 수준이 아닐 경우 대부분 흐린 눈 합니다 <b>그러나 반복될 경우 불시에 정리할 가능성 존재합니다</b></p>
+  <p class="para"><span class="n">(2)</span> 별개로 AI 채팅 및 그림 소비러 내지는 이에 연관된 분과는 어떠한 이유가 있어도 연결하지 않습니다 추후에 숨기다 들키시면 블락으로 대응합니다</p>
+</article>
+
+<article class="card" id="card2">
+  <div class="meta"><span>( <i>名1</i>  )</span></div>
+  <div class="id-row"><span class="tag">LIST </span> 상기 캐릭터 드림러 더 이상 받지 않으며 자연 발생 시 후발주자 FF 정리해요</div>
+  <div class="label">NOTICE</div>
+  <p class="ln"><span class="tag">배경</span> 캐릭터 발생 시 친분 무관 블락</p>
+  <hr>
+  <p class="ln"><b>블랙배저</b> ·  <span class="tag">리카르도 소르디</span>, <b>최윤</b></p>
+  <p class="ln"><b>마법명가 차남으로 살아남는 법 </b>· 아델베르트 호엔촐레른</p>
+  <p class="ln"><b>괴담에 떨어져도 출근을 해야 하는구나</b> · 김솔음, 최 요원</p>
+  <p class="ln"><b>망나니 PD 아이돌로 살아남기</b> · 서효윤</p>
+  <p class="ln"><b>어린 신인데 키워주시죠</b> · 한고요</p>
+  <p class="ln"><b>あんさんぶるスターズ！！</b>· 氷鷹 北斗</p>
+  <p class="ln"><b>プロセカ</b> · 暁山 瑞希</p>
+</article>
+
+<article class="card" id="card3">
+  <div class="meta"><span>( <i>fyi</i>  )</span></div>
+  <div class="id-row">좋아하는 것에 에너지를 쏟는 편이라 타임라인을 정독하기 어렵습니다 계옮이나 메인 드림 변경 시에는 직멘이나 디엠 필시적으로 부탁드립니다</div>
+  <div class="id-row"><b>불특정 다수에게 노출될 만한 제 개인정보 공개적인 곳에서 언급하지 마세요</b></div>
+</article>
 </div>
 
 <script>
-  const pages = [...document.querySelectorAll('.page')];
-  const prev = document.getElementById('prev');
-  const next = document.getElementById('next');
-  let cur = 0;
-  var show = function (n) {
-    cur = Math.max(0, Math.min(pages.length - 1, n));
-    document.body.dataset.p = cur;
-    pages.forEach((p, i) => p.classList.toggle('active', i === cur));
-    prev.disabled = cur === 0;
-    next.disabled = cur === pages.length - 1;
-  }
-  prev.onclick = () => show(cur - 1);
-  next.onclick = () => show(cur + 1);
-  document.querySelectorAll('[data-go]').forEach(el => el.onclick = () => show(+el.dataset.go));
-  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
-  /* ===== 양쪽 정렬: 글자 간격은 최소로, 남는 폭은 띄어쓰기에 분배 ===== */
-  const bodies = [...document.querySelectorAll('.page[data-page="1"] .p, .page[data-page="2"] .p, .page[data-page="3"] .p')];
-  bodies.forEach(p => {
-    let seg = 0;
-    (function walk(node) {
-      [...node.childNodes].forEach(c => {
-        if (c.nodeType === 3) {
-          const f = document.createDocumentFragment();
-          for (const ch of c.textContent) {
-            const s = document.createElement('span');
-            s.className = 'c'; s.dataset.s = seg; s.textContent = ch;
-            f.appendChild(s);
-          }
-          c.replaceWith(f);
-        } else if (c.nodeName === 'BR') { seg++; }
-        else walk(c);
-      });
-    })(p);
+  /* =====================  여기만 수정하세요  ===================== */
+
+  // 1페이지 사진 링크 (이미지 주소를 따옴표 안에 붙여 넣기)
+  const PHOTO_URL = "https://i.pinimg.com/736x/ce/e1/eb/cee1ebe7256963720c05ca698578f378.jpg";
+
+  // 사진 클릭 시 이동할 주소. 비워두면 같은 파일 안의 2페이지로 넘어갑니다.
+  const PAGE2_URL = "";
+
+  // 별 이미지 링크. 비워두면 기본 별 모양이 보입니다. 순서: 큰 별, 중간 별, 작은 별, 원
+  const STAR_URLS = ["","","",""];
+
+  // 별 이미지 크기 (숫자가 클수록 큼). 순서는 위와 같습니다.
+  const STAR_SIZES = [200, 120, 80, 56];
+
+  /* ============================================================== */
+
+  const page1 = document.getElementById('page1');
+  const page2 = document.getElementById('page2');
+  const overlay = document.getElementById('overlay');
+  const cards = [...document.querySelectorAll('.card')];
+
+  // 사진
+  const img = document.getElementById('photoImg');
+  if (PHOTO_URL) img.src = PHOTO_URL;
+
+  document.getElementById('photo').addEventListener('click', e => {
+    e.preventDefault();
+    if (PAGE2_URL) { location.href = PAGE2_URL; return; }
+    page1.classList.add('hide');
+    page2.classList.remove('hide');
   });
 
-  const MAX_LETTER = 0.3; // 글자 사이 최대 추가 간격(px)
+  // 별 이미지 교체
+  const NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll('.star').forEach((s, i) => {
+    const url = STAR_URLS[i];
+    if (!url) return;
+    const size = STAR_SIZES[i] || +s.dataset.size;
+    const cx = +s.dataset.cx, cy = +s.dataset.cy;
+    s.querySelector('.shape').style.display = 'none';
+    const im = document.createElementNS(NS, 'image');
+    im.setAttribute('href', url);
+    im.setAttribute('x', cx - size / 2);
+    im.setAttribute('y', cy - size / 2);
+    im.setAttribute('width', size);
+    im.setAttribute('height', size);
+    im.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    s.insertBefore(im, s.firstChild);
+  });
 
-  function justify(p) {
-    const chars = [...p.querySelectorAll('.c')];
-    chars.forEach(c => c.style.marginRight = '');
-    const W = p.clientWidth;
-    const lines = [];
-    let prevTop = null;
-    chars.forEach(c => {
-      const r = c.getBoundingClientRect();
-      if (prevTop === null || r.top > prevTop + 3) { lines.push([]); prevTop = r.top; }
-      lines[lines.length - 1].push({ c, r });
-    });
-    const jobs = [];
-    lines.forEach((ln, i) => {
-      while (ln.length && ln[ln.length - 1].r.width === 0) ln.pop();
-      if (ln.length < 2 || !lines[i + 1] || !lines[i + 1][0]) return;
-      if (lines[i + 1][0].c.dataset.s !== ln[ln.length - 1].c.dataset.s) return; // <br> 앞줄은 정렬 X
-      const nat = ln[ln.length - 1].r.right - ln[0].r.left;
-      const total = W - nat - 0.6;
-      if (total <= 0 || total / (ln.length - 1) >= 6) return;
-      jobs.push([ln, total]);
-    });
-    jobs.forEach(([ln, total]) => {
-      const body = ln.slice(0, -1);
-      const letterAdd = Math.min(MAX_LETTER, total / body.length);
-      const rest = total - letterAdd * body.length;
-      const spaces = body.filter(o => o.c.textContent === ' ');
-      body.forEach(o => {
-        let add = letterAdd;
-        if (rest > 0 && spaces.length) {
-          if (o.c.textContent === ' ') add += rest / spaces.length;
-        } else if (rest > 0) {
-          add += rest / body.length; // 띄어쓰기 없는 줄은 글자에 균등 분배
-        }
-        o.c.style.marginRight = add + 'px';
-      });
-    });
-  }
-  /* 마지막 줄이 애매하게 한두 글자만 넘어가지 않도록 페이지별 글자 크기 자동 조정 */
-  function lastRatio(p) {
-    const chars = [...p.querySelectorAll('.c')];
-    chars.forEach(c => c.style.marginRight = '');
-    const W = p.clientWidth;
-    let prevTop = null; const lines = [];
-    chars.forEach(c => {
-      const r = c.getBoundingClientRect();
-      if (prevTop === null || r.top > prevTop + 3) { lines.push([]); prevTop = r.top; }
-      lines[lines.length - 1].push(r);
-    });
-    if (lines.length < 2) return 1;
-    const ln = lines[lines.length - 1];
-    while (ln.length && ln[ln.length - 1].width === 0) ln.pop();
-    if (!ln.length) return 1;
-    return (ln[ln.length - 1].right - ln[0].left) / W;
-  }
-  function sizeOrder(lo, hi) {
-    const a = [10];
-    for (let d = 1; d <= 20; d++) {
-      const dn = +(10 - d * 0.1).toFixed(1), up = +(10 + d * 0.1).toFixed(1);
-      if (dn >= lo) a.push(dn);
-      if (up <= hi) a.push(up);
-    }
-    return a;
-  }
-  /* 1·2페이지: 문단마다 마지막 줄이 충분히 차도록 글자 크기를 살짝씩 조정 */
-  function fitPara(p) {
-    let best = 10, bestScore = -1;
-    for (const sz of sizeOrder(9.4, 10.6)) {
-      p.style.setProperty('--fs', sz + 'px');
-      const sc = lastRatio(p);
-      if (sc >= 0.55) { best = sz; bestScore = sc; break; }
-      if (sc > bestScore) { bestScore = sc; best = sz; }
-    }
-    p.style.setProperty('--fs', best + 'px');
-  }
-  /* 3페이지: 목록이라 한 크기로 통일, 모든 줄이 한 줄에 들어가게 */
-  function fitPage(pg) {
-    if (pg._fit) return;
-    const ps = [...pg.querySelectorAll('.p')];
-    if (pg.dataset.page === '3') {
-      let best = 10, bestScore = -1;
-      for (const sz of sizeOrder(8.6, 10.6)) {
-        pg.style.setProperty('--fs', sz + 'px');
-        const sc = Math.min(...ps.map(lastRatio));
-        if (sc >= 0.6) { best = sz; bestScore = sc; break; }
-        if (sc > bestScore) { bestScore = sc; best = sz; }
-      }
-      pg.style.setProperty('--fs', best + 'px');
-    } else {
-      ps.forEach(fitPara);
-    }
-    pg._fit = true;
-  }
-  const USE_JUSTIFY = true; // true: 양쪽 정렬 / false: 왼쪽 정렬(자간 균일)
-  function justifyCur() {
-    if (!USE_JUSTIFY) return;
-    const pg = pages[cur];
-    if (cur === 0) return;
-    if (cur === 3) return; // 3페이지는 목록이라 양쪽 정렬 안 함
-    pg.querySelectorAll('.p').forEach(justify);
-  }
-  const _show = show;
-  show = function (n) { _show(n); requestAnimationFrame(justifyCur); };
-  window.addEventListener('resize', () => { pages.forEach(p => p._fit = false); justifyCur(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(justifyCur);
 
-  show(0);
+  // 기본 별 모양: 가늘고 긴 4방향 + 짧은 대각선 4방향
+  function starPath(cx, cy, R) {
+    const tips = [  // [각도(deg), 길이]
+      [-90, R], [-45, R*0.30], [0, R*0.60], [45, R*0.30],
+      [90, R], [135, R*0.30], [180, R*0.60], [225, R*0.30]
+    ];
+    const w = R * 0.045; // 허리 두께
+    const pt = (a, r) => [cx + r*Math.cos(a*Math.PI/180), cy + r*Math.sin(a*Math.PI/180)];
+    let d = '';
+    tips.forEach((t, i) => {
+      const n = tips[(i+1) % tips.length];
+      const [x1, y1] = pt(t[0], t[1]);
+      const na = i === 7 ? 270 : n[0];
+      const [x2, y2] = pt(na, n[1]);
+      const mid = (t[0] + na) / 2;
+      const [qx, qy] = pt(mid, w);
+      if (i === 0) d += `M${x1.toFixed(1)} ${y1.toFixed(1)}`;
+      d += ` Q${qx.toFixed(1)} ${qy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+    });
+    return d + ' Z';
+  }
+  document.querySelectorAll('.star').forEach(s => {
+    if (s.dataset.r) s.querySelector('.shape').setAttribute('d', starPath(+s.dataset.cx, +s.dataset.cy, +s.dataset.r));
+  });
+
+
+  // "망각은 축복이었을 텐데": location 과 별자리 중심 기준 점대칭(상하좌우 반대) 위치에 자동 배치
+  const frame = document.getElementById('frame');
+  const stageEl = document.getElementById('stage');
+  const locEl = document.getElementById('loc');
+  const fgEl = document.querySelector('.lbl.fg');
+  function placeFg() {
+    const f = frame.getBoundingClientRect();
+    const st = stageEl.getBoundingClientRect();
+    const l = locEl.getBoundingClientRect();
+    if (!f.width) return;
+    // 별자리 실제 중심 (viewBox 1596x2310 기준 별들이 차지하는 범위의 중앙)
+    const cx = st.left + st.width * (798 / 1596);
+    const cy = st.top + st.height * (1090 / 2310);
+    const lx = l.left + l.width / 2, ly = l.top + l.height / 2;
+    const PULL = 0.75; // 1 = 완전 점대칭, 작을수록 별자리 중심 쪽으로 가까워짐
+    const tx = cx + (cx - lx) * PULL, ty = cy + (cy - ly) * PULL;
+    const w = fgEl.offsetWidth, h = fgEl.offsetHeight;
+    fgEl.style.left = (tx - w / 2 - f.left) + 'px';
+    fgEl.style.top  = (ty - h / 2 - f.top) + 'px';
+  }
+  placeFg();
+  window.addEventListener('resize', placeFg);
+  window.addEventListener('load', placeFg);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeFg);
+
+  // 팝업
+  function openCard(i) {
+    cards.forEach((c, k) => c.classList.toggle('show', k === i));
+    overlay.classList.add('on');
+    if (cards[i]) cards[i].scrollTop = 0;
+  }
+  function closeCard() {
+    overlay.classList.remove('on');
+    setTimeout(() => cards.forEach(c => c.classList.remove('show')), 400);
+  }
+
+  document.querySelectorAll('.star').forEach(s => {
+    const open = e => { e.stopPropagation(); openCard(+s.dataset.card); };
+    s.addEventListener('click', open);
+    s.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(e); }
+    });
+  });
+
+  // 화면 어디를 터치해도 팝업 닫힘
+  overlay.addEventListener('click', closeCard);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
 </script>
 </body>
 </html>
